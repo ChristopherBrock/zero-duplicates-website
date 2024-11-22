@@ -13,7 +13,6 @@ export const personalInfo = {
     },
     contact: {
         email: "support@zeroduplicates.com",
-        phone: "Your Phone Number"
     },
     company: {
         name: "ZeroDuplicates",
