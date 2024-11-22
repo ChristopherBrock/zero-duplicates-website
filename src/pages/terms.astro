@@ -1,0 +1,51 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+import { personalInfo } from '../utils/constants';
+---
+
+<LegalLayout title="Allgemeine Geschäftsbedingungen">
+  <h1>Allgemeine Geschäftsbedingungen (AGB)</h1>
+  <p>Stand: {new Date().toLocaleDateString('de-DE')}</p>
+
+  <h2>1. Geltungsbereich</h2>
+  <p>
+    Diese AGB gelten für die Nutzung der Software "ZeroDuplicates" (nachfolgend "Software").
+  </p>
+
+  <h2>2. Leistungsbeschreibung</h2>
+  <p>
+    Die Software ermöglicht das Auffinden und Löschen von Dateiduplikaten. 
+    Die Software wird "wie besehen" zur Verfügung gestellt.
+  </p>
+
+  <h2>3. Nutzungsrechte</h2>
+  <p>
+    Mit dem Erwerb der Software erhält der Nutzer ein einfaches, nicht übertragbares 
+    Nutzungsrecht. Eine Weitergabe der Software an Dritte ist nicht gestattet.
+  </p>
+
+  <h2>4. Haftungsbeschränkung</h2>
+  <p>
+    Wir übernehmen keine Haftung für Datenverluste oder Schäden, die durch die Nutzung 
+    der Software entstehen. Der Nutzer ist für die Sicherung seiner Daten selbst 
+    verantwortlich.
+  </p>
+
+  <h2>5. Gewährleistung</h2>
+  <p>
+    Eine Gewährleistung für die Funktionsfähigkeit der Software besteht nur im 
+    gesetzlich zwingenden Umfang. Der Nutzer testet die Software in einer 
+    gesicherten Umgebung.
+  </p>
+
+  <h2>6. Änderungen</h2>
+  <p>
+    Wir behalten uns vor, diese AGB jederzeit zu ändern. Die aktuelle Version ist 
+    in der Software einsehbar.
+  </p>
+
+  <h2>7. Schlussbestimmungen</h2>
+  <p>
+    Es gilt deutsches Recht. Gerichtsstand ist {personalInfo.address.city}, soweit gesetzlich zulässig.
+  </p>
+</LegalLayout>

@@ -1,0 +1,42 @@
+---
+import Button from '../common/Button.astro';
+import ScreenshotGallery from './ScreenshotGallery.astro';
+---
+
+<section class="relative overflow-hidden pt-[120px] pb-16 sm:pt-[150px] sm:pb-24 hero-gradient">
+    <div class="container-width">
+        <div class="text-center">
+            <h1 class="text-4xl font-bold tracking-tight text-white sm:text-6xl">
+                Find and Remove Duplicate Files
+                <span class="text-swift-blue block">with Confidence</span>
+            </h1>
+            
+            <p class="mx-auto mt-6 max-w-2xl text-lg leading-8 text-text-secondary">
+                Clean up your Mac's storage by safely identifying and removing duplicate files. 
+                Smart detection ensures you'll never lose the files you need.
+            </p>
+            
+            <div class="mt-10 flex items-center justify-center gap-x-6">
+                <Button
+                    href="#"
+                    variant="primary"
+                    size="lg"
+                    class="bg-swift-blue hover:bg-swift-blue/90"
+                >
+                    Download on Mac App Store
+                </Button>
+                
+                <Button
+                    href="#features"
+                    variant="secondary"
+                    size="lg"
+                    class="bg-background-elevated hover:bg-background-elevated/90 border border-white/10"
+                >
+                    Learn More
+                </Button>
+            </div>
+        </div>
+
+        <ScreenshotGallery />
+    </div>
+</section>

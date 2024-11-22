@@ -1,0 +1,39 @@
+---
+interface Props {
+  href?: string;
+  variant?: 'primary' | 'secondary' | 'danger';
+  size?: 'sm' | 'md' | 'lg';
+  class?: string;
+  onClick?: string;
+}
+
+const { 
+  href, 
+  variant = 'primary',
+  size = 'md',
+  class: className = '',
+  onClick
+} = Astro.props;
+
+const baseStyles = "inline-flex items-center justify-center rounded-md font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-background";
+
+const variantStyles = {
+  primary: "bg-[#0E6FFF] hover:bg-[#0E6FFF]/90 text-white",
+  secondary: "bg-background-elevated hover:bg-white/10 text-white border border-white/10",
+  danger: "bg-swift-red hover:bg-swift-red/90 text-white"
+};
+
+const sizeStyles = {
+  sm: "px-3 py-1.5 text-sm",
+  md: "px-4 py-2 text-sm",
+  lg: "px-6 py-3 text-base"
+};
+
+const styles = `${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${className}`;
+
+const Tag = href ? 'a' : 'button';
+---
+
+<Tag href={href} class={styles} onclick={onClick}>
+  <slot />
+</Tag>

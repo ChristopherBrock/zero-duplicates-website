@@ -1,0 +1,56 @@
+---
+import Button from "./Button.astro";
+const currentPath = Astro.url.pathname;
+const isMainPage = currentPath === "/";
+---
+
+<header
+  class="fixed w-full bg-background-elevated/80 backdrop-blur-md z-50 border-b border-white/10"
+>
+  <div class="container-width">
+    <div class="flex justify-between items-center py-4">
+      <div class="flex items-center">
+        <a href="/" class="flex items-center">
+          <div class="relative w-10 h-10 mr-3">
+            <img
+              src="/images/logo/logo@1x.png"
+              srcset="/images/logo/logo@1x.png 1x,
+                      /images/logo/logo@2x.png 2x"
+              alt="ZeroDuplicates Logo"
+              class="w-10 h-10 mr-3 rounded-[23%] shadow-md"
+            />
+          </div>
+          <span class="text-xl font-semibold text-white">ZeroDuplicates</span>
+        </a>
+      </div>
+
+      {isMainPage && (
+        <nav class="hidden md:flex items-center space-x-8">
+          <a
+            href="#features"
+            class="text-sm text-text-secondary hover:text-swift-blue transition-colors"
+          >
+            Features
+          </a>
+          <a 
+            href="#faq" 
+            class="text-sm text-text-secondary hover:text-swift-blue transition-colors"
+          >
+            FAQ
+          </a>
+        </nav>
+      )}
+
+      <div class="flex items-center">
+        <Button 
+          href="#" 
+          variant="primary" 
+          size="md"
+          class="bg-swift-blue hover:bg-swift-blue/90"
+        >
+          Download
+        </Button>
+      </div>
+    </div>
+  </div>
+</header>

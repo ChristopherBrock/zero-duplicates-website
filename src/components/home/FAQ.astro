@@ -1,0 +1,46 @@
+---
+const faqs = [
+  {
+    question: "How does ZeroDuplicates find duplicate files?",
+    answer: "ZeroDuplicates uses advanced file comparison algorithms that look at the actual content of files, not just their names. This ensures accurate identification of duplicates even if they have different names or are in different locations."
+  },
+  {
+    question: "Is it safe to use?",
+    answer: "Yes! ZeroDuplicates is designed with safety in mind. It always preserves at least one copy of each file and allows you to preview files before deletion. You have full control over which duplicates to remove."
+  },
+  {
+    question: "What types of files can it handle?",
+    answer: "ZeroDuplicates can find duplicates of any file type on your Mac, including documents, images, videos, and more. The built-in preview feature supports most common file formats."
+  },
+  {
+    question: "Will it slow down my Mac?",
+    answer: "No, ZeroDuplicates is optimized for performance. It runs efficiently in the background and you can continue using your Mac while it scans for duplicates."
+  }
+];
+---
+
+<section id="faq" class="py-24 bg-background-muted">
+  <div class="container-width">
+    <div class="mx-auto max-w-2xl lg:text-center">
+      <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+        Frequently Asked Questions
+      </h2>
+      <p class="mt-6 text-lg leading-8 text-text-secondary">
+        Everything you need to know about ZeroDuplicates
+      </p>
+    </div>
+
+    <dl class="mx-auto mt-16 max-w-2xl space-y-8">
+      {faqs.map((faq) => (
+        <div class="bg-background-elevated px-6 py-8 rounded-lg border border-white/10">
+          <dt class="text-lg font-semibold leading-7 text-white">
+            {faq.question}
+          </dt>
+          <dd class="mt-4 text-base leading-7 text-text-secondary">
+            {faq.answer}
+          </dd>
+        </div>
+      ))}
+    </dl>
+  </div>
+</section>

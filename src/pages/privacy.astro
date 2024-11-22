@@ -1,0 +1,44 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+---
+
+<LegalLayout title="Datenschutzerklärung">
+  <h1>Datenschutzerklärung</h1>
+  <p>Stand: {new Date().toLocaleDateString('de-DE')}</p>
+
+  <h2>1. Datenschutz auf einen Blick</h2>
+  <p>
+    ZeroDuplicates ist eine lokale Mac-Anwendung, die ausschließlich auf Ihrem Computer arbeitet. 
+    Die App sammelt oder speichert keine personenbezogenen Daten.
+  </p>
+
+  <h2>2. Datenverarbeitung</h2>
+  <p>
+    Die App verarbeitet ausschließlich die von Ihnen ausgewählten Dateien und Ordner, um Duplikate zu finden. 
+    Diese Verarbeitung findet vollständig lokal auf Ihrem Gerät statt. Es werden keine Daten an externe Server übertragen.
+  </p>
+
+  <h2>3. App Store Nutzung</h2>
+  <p>
+    ZeroDuplicates wird über den Mac App Store vertrieben. Apple erfasst dabei standardmäßig anonymisierte Nutzungsdaten 
+    wie Download-Statistiken oder Absturzberichte. Diese Datenerfassung erfolgt durch Apple und nicht durch ZeroDuplicates. 
+    Details hierzu finden Sie in der <a href="https://www.apple.com/legal/privacy/de-ww/" target="_blank">Datenschutzerklärung von Apple</a>.
+  </p>
+
+  <h2>4. Ihre Daten</h2>
+  <p>
+    Die App hat Zugriff auf die von Ihnen explizit ausgewählten Ordner, um Duplikate zu finden. 
+    Dieser Zugriff wird über die Standardberechtigungen von macOS verwaltet und kann jederzeit in den 
+    Systemeinstellungen unter "Sicherheit & Datenschutz" eingesehen und angepasst werden.
+  </p>
+
+  <h2>5. Drittanbieter</h2>
+  <p>
+    ZeroDuplicates nutzt keine Drittanbieterdienste und überträgt keine Daten an Dritte.
+  </p>
+
+  <h2>6. Kontakt</h2>
+  <p>
+    Bei Fragen zum Datenschutz können Sie uns über die im Impressum angegebenen Kontaktdaten erreichen.
+  </p>
+</LegalLayout>

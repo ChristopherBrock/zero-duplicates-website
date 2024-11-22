@@ -1,0 +1,199 @@
+---
+const screenshots = [
+    {
+        src: "/images/screenshots/screenshot-1.png",
+        alt: "Initial view",
+    },
+    {
+        src: "/images/screenshots/screenshot-2.png",
+        alt: "Scanning for duplicates",
+    },
+    {
+        src: "/images/screenshots/screenshot-3.png",
+        alt: "Select duplicates",
+    },
+    {
+        src: "/images/screenshots/screenshot-4.png",
+        alt: "Remove duplicates",
+    },
+];
+---
+
+<div class="mt-16">
+    <div class="relative overflow-hidden rounded-2xl shadow-2xl bg-background-elevated border border-white/10">
+        <div class="screenshot-carousel flex transition-transform duration-500">
+            {/* Last image clone */}
+            <img
+                src={screenshots[screenshots.length - 1].src}
+                alt={screenshots[screenshots.length - 1].alt}
+                class="w-full shrink-0 object-contain bg-background-elevated aspect-[16/10]"
+            />
+            
+            {screenshots.map((screenshot) => (
+                <img
+                    src={screenshot.src}
+                    alt={screenshot.alt}
+                    class="w-full shrink-0 object-contain bg-background-elevated aspect-[16/10]"
+                />
+            ))}
+            
+            {/* First image clone */}
+            <img
+                src={screenshots[0].src}
+                alt={screenshots[0].alt}
+                class="w-full shrink-0 object-contain bg-background-elevated aspect-[16/10]"
+            />
+        </div>
+        
+        {/* Navigation arrows */}
+        <button 
+            class="absolute left-6 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/30 rounded-full p-3 transition backdrop-blur-sm group"
+            id="prevButton"
+            aria-label="Previous screenshot"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="white" class="w-6 h-6 group-hover:scale-110 transition">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+            </svg>
+        </button>
+        
+        <button 
+            class="absolute right-6 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/30 rounded-full p-3 transition backdrop-blur-sm group"
+            id="nextButton"
+            aria-label="Next screenshot"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="white" class="w-6 h-6 group-hover:scale-110 transition">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+        </button>
+
+        {/* Navigation dots */}
+        <div class="absolute bottom-4 left-1/2 flex -translate-x-1/2 space-x-2">
+            {screenshots.map((_, index) => (
+                <button
+                    class="screenshot-dot h-1.5 w-1.5 rounded-full bg-white/50 transition-all duration-300"
+                    data-index={index}
+                    aria-label={`Go to screenshot ${index + 1}`}
+                />
+            ))}
+        </div>
+    </div>
+</div>
+
+<script>
+    class ScreenshotGallery {
+        private currentIndex: number;
+        private carousel: HTMLElement | null;
+        private prevButton: HTMLElement | null;
+        private nextButton: HTMLElement | null;
+        private dots: NodeListOf<HTMLElement>;
+        private totalSlides: number;
+        private autoplayInterval: number | null;
+        private readonly autoplayDelay: number;
+
+        constructor() {
+            this.currentIndex = 0;
+            this.carousel = document.querySelector('.screenshot-carousel');
+            this.prevButton = document.querySelector('#prevButton');
+            this.nextButton = document.querySelector('#nextButton');
+            this.dots = document.querySelectorAll('.screenshot-dot');
+            this.totalSlides = this.dots.length;
+            this.autoplayInterval = null;
+            this.autoplayDelay = 5000; // 5 seconds
+
+            this.init();
+        }
+
+        private init(): void {
+            this.updateCarousel();
+            this.updateDots();
+
+            this.prevButton?.addEventListener('click', () => this.prev());
+            this.nextButton?.addEventListener('click', () => this.next());
+            
+            this.dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => this.goToSlide(index));
+            });
+
+            this.carousel?.addEventListener('transitionend', () => {
+                if (this.currentIndex === -1) {
+                    if (this.carousel) {
+                        this.carousel.style.transition = 'none';
+                        this.currentIndex = this.totalSlides - 1;
+                        this.updateCarousel();
+                        setTimeout(() => {
+                            if (this.carousel) {
+                                this.carousel.style.transition = 'transform 500ms';
+                            }
+                        }, 10);
+                    }
+                } else if (this.currentIndex === this.totalSlides) {
+                    if (this.carousel) {
+                        this.carousel.style.transition = 'none';
+                        this.currentIndex = 0;
+                        this.updateCarousel();
+                        setTimeout(() => {
+                            if (this.carousel) {
+                                this.carousel.style.transition = 'transform 500ms';
+                            }
+                        }, 10);
+                    }
+                }
+            });
+
+            this.startAutoplay();
+
+            const carouselParent = this.carousel?.parentElement;
+            if (carouselParent) {
+                carouselParent.addEventListener('mouseenter', () => this.stopAutoplay());
+                carouselParent.addEventListener('mouseleave', () => this.startAutoplay());
+            }
+        }
+
+        private updateCarousel(): void {
+            if (!this.carousel) return;
+            const offset = (this.currentIndex + 1) * -100;
+            this.carousel.style.transform = `translateX(${offset}%)`;
+        }
+
+        private updateDots(): void {
+            this.dots.forEach((dot, index) => {
+                dot.classList.toggle('bg-white', index === this.currentIndex);
+                dot.classList.toggle('bg-white/50', index !== this.currentIndex);
+            });
+        }
+
+        private next(): void {
+            this.currentIndex = Math.min(this.currentIndex + 1, this.totalSlides);
+            this.updateCarousel();
+            this.updateDots();
+        }
+
+        private prev(): void {
+            this.currentIndex = Math.max(this.currentIndex - 1, -1);
+            this.updateCarousel();
+            this.updateDots();
+        }
+
+        private goToSlide(index: number): void {
+            this.currentIndex = index;
+            this.updateCarousel();
+            this.updateDots();
+        }
+
+        private startAutoplay(): void {
+            if (this.autoplayInterval) return;
+            this.autoplayInterval = window.setInterval(() => this.next(), this.autoplayDelay);
+        }
+
+        private stopAutoplay(): void {
+            if (!this.autoplayInterval) return;
+            window.clearInterval(this.autoplayInterval);
+            this.autoplayInterval = null;
+        }
+    }
+
+    // Initialize the gallery when the DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+        new ScreenshotGallery();
+    });
+</script>

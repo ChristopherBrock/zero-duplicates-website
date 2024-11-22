@@ -1,0 +1,118 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --header-height: 4rem;
+    
+    /* Dark theme colors */
+    --color-background: #1C1C1E;
+    --color-background-elevated: #2C2C2E;
+    --color-background-muted: #252527;
+    
+    /* Swift-inspired accent colors */
+    --color-swift-blue: #0E6FFF;
+    --color-swift-red: #FF3B30;
+    --color-swift-orange: #FF9500;
+    
+    /* Text colors */
+    --color-text-primary: #FFFFFF;
+    --color-text-secondary: rgba(255, 255, 255, 0.7);
+    --color-text-tertiary: rgba(255, 255, 255, 0.5);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--header-height);
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+  }
+
+  body {
+    @apply antialiased;
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+  }
+}
+
+@layer components {
+  .container-width {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-padding {
+    @apply py-16 sm:py-24;
+  }
+
+  .prose-custom {
+    @apply prose prose-invert max-w-none
+    prose-headings:text-white
+    prose-a:text-swift-blue prose-a:no-underline hover:prose-a:underline
+    prose-strong:text-white
+    prose-ul:list-disc prose-ul:pl-5
+    prose-ol:pl-5;
+  }
+
+  /* Card styles */
+  .dark-card {
+    @apply bg-elevated rounded-lg border border-white/10;
+  }
+
+  /* Button styles */
+  .btn-primary {
+    @apply bg-swift-blue text-white hover:bg-swift-blue/90;
+  }
+
+  .btn-secondary {
+    @apply bg-background-muted text-white hover:bg-background-muted/90;
+  }
+}
+
+/* Custom utility classes */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .bg-elevated {
+    background-color: var(--color-background-elevated);
+  }
+
+  .bg-muted {
+    background-color: var(--color-background-muted);
+  }
+
+  .text-swift-blue {
+    color: var(--color-swift-blue);
+  }
+
+  .text-swift-red {
+    color: var(--color-swift-red);
+  }
+}
+
+.hero-gradient {
+  background: linear-gradient(
+    120deg,
+    var(--color-background) 0%,
+    var(--color-background-elevated) 25%,
+    var(--color-background-muted) 50%,
+    var(--color-background-elevated) 75%,
+    var(--color-background) 100%
+  );
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
