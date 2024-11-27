@@ -20,3 +20,7 @@ export const personalInfo = {
         website: "https://zeroduplicates.com"
     }
 };
+
+export const appLinks = {
+    appStore: "https://apps.apple.com/de/app/zero-duplicates/id6738340521" 
+};

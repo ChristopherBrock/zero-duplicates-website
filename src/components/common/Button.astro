@@ -5,6 +5,8 @@ interface Props {
   size?: 'sm' | 'md' | 'lg';
   class?: string;
   onClick?: string;
+  target?: string;
+  rel?: string;
 }
 
 const { 
@@ -12,7 +14,9 @@ const {
   variant = 'primary',
   size = 'md',
   class: className = '',
-  onClick
+  onClick,
+  target,
+  rel
 } = Astro.props;
 
 const baseStyles = "inline-flex items-center justify-center rounded-md font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-background";
@@ -34,6 +38,12 @@ const styles = `${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${cl
 const Tag = href ? 'a' : 'button';
 ---
 
-<Tag href={href} class={styles} onclick={onClick}>
+<Tag 
+  href={href} 
+  class={styles} 
+  onclick={onClick}
+  target={target}
+  rel={rel}
+>
   <slot />
 </Tag>

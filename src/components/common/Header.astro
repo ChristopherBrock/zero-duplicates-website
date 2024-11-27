@@ -1,5 +1,6 @@
 ---
 import Button from "./Button.astro";
+import { appLinks } from '../../utils/constants';
 const currentPath = Astro.url.pathname;
 const isMainPage = currentPath === "/";
 ---
@@ -43,12 +44,14 @@ const isMainPage = currentPath === "/";
 
       <div class="flex items-center">
         <Button 
-          href="#" 
-          variant="primary" 
-          size="md"
-          class="bg-swift-blue hover:bg-swift-blue/90"
+            href={appLinks.appStore}
+            variant="primary" 
+            size="md"
+            class="bg-swift-blue hover:bg-swift-blue/90"
+            target="_blank"
+            rel="noopener noreferrer"
         >
-          Download
+            Download
         </Button>
       </div>
     </div>

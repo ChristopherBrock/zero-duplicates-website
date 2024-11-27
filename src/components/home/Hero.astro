@@ -1,6 +1,7 @@
 ---
 import Button from '../common/Button.astro';
 import ScreenshotGallery from './ScreenshotGallery.astro';
+import { appLinks } from '../../utils/constants';
 ---
 
 <section class="relative overflow-hidden pt-[120px] pb-16 sm:pt-[150px] sm:pb-24 hero-gradient">
@@ -18,10 +19,12 @@ import ScreenshotGallery from './ScreenshotGallery.astro';
             
             <div class="mt-10 flex items-center justify-center gap-x-6">
                 <Button
-                    href="#"
+                    href={appLinks.appStore}
                     variant="primary"
                     size="lg"
                     class="bg-swift-blue hover:bg-swift-blue/90"
+                    target="_blank"
+                    rel="noopener noreferrer"
                 >
                     Download on Mac App Store
                 </Button>
