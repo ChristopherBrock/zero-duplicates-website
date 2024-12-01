@@ -1,0 +1,97 @@
+---
+import { getLocaleFromUrl, getRelativeLocaleUrl } from '../../i18n/ui';
+import { languageNames, type SupportedLanguage } from '../../i18n/config';
+
+// Get current URL and language
+const url = Astro.url;
+const currentLang = getLocaleFromUrl(url);
+
+// Get current path without language prefix
+const currentPath = url.pathname.replace(`/${currentLang}`, '') || '/';
+
+// Create array of language options
+const languageOptions = Object.entries(languageNames).map(([lang, name]) => ({
+  lang: lang as SupportedLanguage,
+  name,
+  url: getRelativeLocaleUrl(lang as SupportedLanguage, currentPath),
+  isActive: currentLang === lang
+}));
+---
+
+<div class="relative inline-block text-left">
+    <button
+      type="button"
+      class="inline-flex items-center justify-center gap-x-2 text-sm text-text-secondary hover:text-swift-blue transition-colors"
+      id="language-menu-button"
+      aria-expanded="false"
+      aria-haspopup="true"
+    >
+      {languageNames[currentLang]}
+      <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+      </svg>
+    </button>
+  
+    <div
+      class="hidden absolute right-0 z-50 mt-2 w-40 origin-top-right rounded-md bg-[#2C2C2E] border border-white/10 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+      role="menu"
+      aria-orientation="vertical"
+      aria-labelledby="language-menu-button"
+      tabindex="-1"
+      id="language-menu"
+    >
+      <div class="py-1" role="none">
+        {
+          languageOptions.map((option) => (
+            
+          <a
+              href={option.url}
+              class={`block px-4 py-2 text-sm transition-colors ${
+                option.isActive 
+                  ? "bg-swift-blue/10 text-swift-blue" 
+                  : "text-text-secondary hover:bg-[#3C3C3E] hover:text-white"
+              }`}
+              role="menuitem"
+              tabindex="-1"
+            >
+              {option.name}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+
+<script>
+  // Toggle dropdown
+  const button = document.getElementById('language-menu-button');
+  const menu = document.getElementById('language-menu');
+
+  if (button && menu) {
+    const toggleMenu = () => {
+      const expanded = button.getAttribute('aria-expanded') === 'true';
+      button.setAttribute('aria-expanded', (!expanded).toString());
+      menu.classList.toggle('hidden');
+    };
+
+    // Toggle on button click
+    button.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleMenu();
+    });
+
+    // Close on click outside
+    document.addEventListener('click', () => {
+      if (!menu.classList.contains('hidden')) {
+        toggleMenu();
+      }
+    });
+
+    // Close on ESC key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !menu.classList.contains('hidden')) {
+        toggleMenu();
+      }
+    });
+  }
+</script>

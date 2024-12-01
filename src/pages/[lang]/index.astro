@@ -1,0 +1,51 @@
+---
+import '../../styles/global.css';
+import Header from '../../components/common/Header.astro';
+import Hero from '../../components/home/Hero.astro';
+import Features from '../../components/home/Features.astro';
+import FAQ from '../../components/home/FAQ.astro';
+import Contact from '../../components/home/Contact.astro';
+import Footer from '../../components/common/Footer.astro';
+import { translations } from '../../i18n/translations';
+import { isValidLanguage } from '../../i18n/ui';
+import type { GetStaticPaths } from 'astro';
+import { supportedLanguages } from '../../i18n/config';
+
+// Generate static paths for all supported languages
+export const getStaticPaths = (() => {
+  return supportedLanguages.map(lang => ({ params: { lang } }));
+}) satisfies GetStaticPaths;
+
+// Get language from URL params
+const { lang } = Astro.params;
+
+// Validate language
+if (!isValidLanguage(lang)) {
+  return Astro.redirect('/');
+}
+
+const t = translations[lang];
+---
+
+<html lang={lang} class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{t.seo.title}</title>
+    <meta name="description" content={t.seo.description} />
+  </head>
+  <body class="min-h-screen flex flex-col bg-background text-text-primary">
+    <Header />
+    <main class="flex-grow">
+      <Hero />
+      <Features />
+      <FAQ />
+      <Contact />
+    </main>
+    <Footer />
+  </body>
+</html>

@@ -1,32 +1,9 @@
 ---
-import '../styles/global.css';
-import Header from '../components/common/Header.astro';
-import Hero from '../components/home/Hero.astro';
-import Features from '../components/home/Features.astro';
-import FAQ from '../components/home/FAQ.astro';
-import Contact from '../components/home/Contact.astro';
-import Footer from '../components/common/Footer.astro';
+import { getUserPreferredLanguage, getRelativeLocaleUrl } from '../i18n/ui';
+
+// Get user's preferred language
+const preferredLanguage = getUserPreferredLanguage();
+const redirectUrl = getRelativeLocaleUrl(preferredLanguage);
 ---
 
-<html lang="en" class="dark">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
-		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>ZeroDuplicates - Find and Remove Duplicate Files on Mac</title>
-		<meta name="description" content="Clean up your Mac's storage by safely identifying and removing duplicate files. Smart detection ensures you'll never lose the files you need." />
-	</head>
-	<body class="min-h-screen flex flex-col bg-background text-text-primary">
-		<Header />
-		<main class="flex-grow">
-			<Hero />
-			<Features />
-			<FAQ />
-			<Contact />
-		</main>
-		<Footer />
-	</body>
-</html>
+<meta http-equiv="refresh" content={`0;url=${redirectUrl}`} />
