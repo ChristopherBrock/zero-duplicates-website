@@ -22,21 +22,20 @@ const fullTitle = title;
 <title>{fullTitle}</title>
 <meta name="description" content={description} />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<!-- Basic Favicons -->
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+
+<!-- App-specific Meta -->
+<meta name="application-name" content={siteTitle} />
+<meta name="theme-color" content="#1C1C1E" />
+
+<!-- Apple Touch Icon -->
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+
+<!-- Language and SEO -->
 <link rel="canonical" href={canonicalUrl} />
-
-<!-- Favicon Tags -->
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/site.webmanifest">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#0E6FFF">
-<meta name="msapplication-TileColor" content="#1C1C1E">
-<meta name="theme-color" content="#1C1C1E">
-
-<!-- Web App Manifest -->
-<link rel="manifest" href="/site.webmanifest" />
-
-<!-- Language -->
 <meta property="og:locale" content={lang === 'en' ? 'en_US' : 'de_DE'} />
 
 <!-- Open Graph -->
@@ -51,16 +50,11 @@ const fullTitle = title;
 <meta name="twitter:title" content={fullTitle} />
 <meta name="twitter:description" content={description} />
 
-<!-- App Store Meta -->
+<!-- App Store -->
 <meta name="apple-itunes-app" content="app-id=6738340521" />
-
-{/* Preconnect to App Store */}
 <link rel="preconnect" href="https://apps.apple.com" />
 
-{/* Canonical URL */}
-<link rel="canonical" href={canonicalUrl} />
-
-{/* Alternate Language Links */}
+<!-- Language Alternates -->
 <link rel="alternate" href={`https://zeroduplicates.com/en`} hreflang="en" />
 <link rel="alternate" href={`https://zeroduplicates.com/de`} hreflang="de" />
 <link rel="alternate" href={`https://zeroduplicates.com/en`} hreflang="x-default" />
