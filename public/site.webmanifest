@@ -1,11 +1,6 @@
 {
     "name": "ZeroDuplicates",
     "short_name": "ZeroDuplicates",
-    "description": "Find and remove duplicate files on your Mac with confidence",
-    "start_url": "/",
-    "display": "standalone",
-    "background_color": "#1C1C1E",
-    "theme_color": "#0E6FFF",
     "icons": [
       {
         "src": "/android-chrome-192x192.png",
@@ -17,5 +12,8 @@
         "sizes": "512x512",
         "type": "image/png"
       }
-    ]
+    ],
+    "theme_color": "#1C1C1E",
+    "background_color": "#1C1C1E",
+    "display": "standalone"
   }
