@@ -9,7 +9,9 @@ const currentLang = getLocaleFromUrl(Astro.url);
 const t = translations[currentLang];
 
 // Get the correct store badge based on language
-const storeBadge = currentLang === 'en' ? '/images/en_store.svg' : '/images/de_store.svg';
+const storeBadge = {
+    svg: currentLang === 'en' ? '/images/en_store.svg' : '/images/de_store.svg',
+};
 ---
 
 <section class="relative overflow-hidden pt-[120px] pb-16 sm:pt-[150px] sm:pb-24 hero-gradient">
@@ -32,8 +34,9 @@ const storeBadge = currentLang === 'en' ? '/images/en_store.svg' : '/images/de_s
                     rel="noopener noreferrer"
                     aria-label={t.hero.cta.download}
                 >
+                    {/* For App Store Badge, we can use the SVG directly as it's vector-based */}
                     <img 
-                        src={storeBadge}
+                        src={storeBadge.svg}
                         alt={t.hero.cta.download}
                         class="h-[60px] w-auto"
                         width="212"
