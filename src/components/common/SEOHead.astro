@@ -15,7 +15,7 @@ const {
 } = Astro.props;
 
 const siteTitle = 'ZeroDuplicates';
-const fullTitle = title === siteTitle ? title : `${title} | ${siteTitle}`;
+const fullTitle = title;
 ---
 
 <meta charset="utf-8" />
@@ -53,3 +53,14 @@ const fullTitle = title === siteTitle ? title : `${title} | ${siteTitle}`;
 
 <!-- App Store Meta -->
 <meta name="apple-itunes-app" content="app-id=6738340521" />
+
+{/* Preconnect to App Store */}
+<link rel="preconnect" href="https://apps.apple.com" />
+
+{/* Canonical URL */}
+<link rel="canonical" href={canonicalUrl} />
+
+{/* Alternate Language Links */}
+<link rel="alternate" href={`https://zeroduplicates.com/en`} hreflang="en" />
+<link rel="alternate" href={`https://zeroduplicates.com/de`} hreflang="de" />
+<link rel="alternate" href={`https://zeroduplicates.com/en`} hreflang="x-default" />

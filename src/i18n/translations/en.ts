@@ -68,7 +68,7 @@ export const en: Translation = {
     lastUpdated: "Last updated:",
   },
   seo: {
-    title: "ZeroDuplicates - Find and Remove Duplicate Files on Mac",
-    description: "Clean up your Mac's storage by safely identifying and removing duplicate files. Smart detection ensures you'll never lose the files you need.",
+    title: "Zero Duplicates App - Find and Remove Duplicate Files on Mac",
+    description: "Clean up your Mac's storage by safely identifying and removing duplicate files. Smart detection ensures you'll never lose the files you need. Download on App Store.",
   },
 };
