@@ -1,6 +1,5 @@
 ---
 // File: components/home/Hero.astro
-import Button from '../common/Button.astro';
 import ScreenshotGallery from './ScreenshotGallery.astro';
 import { getLocaleFromUrl } from '../../i18n/ui';
 import { translations } from '../../i18n/translations';
@@ -8,12 +7,14 @@ import { appLinks } from '../../utils/constants';
 
 const currentLang = getLocaleFromUrl(Astro.url);
 const t = translations[currentLang];
+
+// Get the correct store badge based on language
+const storeBadge = currentLang === 'en' ? '/images/en_store.svg' : '/images/de_store.svg';
 ---
 
 <section class="relative overflow-hidden pt-[120px] pb-16 sm:pt-[150px] sm:pb-24 hero-gradient">
     <div class="container-width">
         <div class="text-center">
-            {/* This is now an h2 since we have a hidden h1 in the main page */}
             <h2 class="text-4xl font-bold tracking-tight text-white sm:text-6xl">
                 {t.hero.title}
                 <span class="text-swift-blue block">{t.hero.titleHighlight}</span>
@@ -23,26 +24,43 @@ const t = translations[currentLang];
                 {t.hero.subtitle}
             </p>
             
-            <div class="mt-10 flex items-center justify-center gap-x-6">
-                <Button
+            <div class="mt-10 flex flex-col sm:flex-row items-center justify-center space-y-6 sm:space-y-0 sm:space-x-8">
+                <a 
                     href={appLinks.appStore}
-                    variant="primary"
-                    size="lg"
-                    class="bg-swift-blue hover:bg-swift-blue/90"
+                    class="inline-block transition-opacity hover:opacity-90"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     aria-label={t.hero.cta.download}
                 >
-                    {t.hero.cta.download}
-                </Button>
-                
-                <Button
+                    <img 
+                        src={storeBadge}
+                        alt={t.hero.cta.download}
+                        class="h-[60px] w-auto"
+                        width="212"
+                        height="60"
+                    />
+                </a>
+
+                <a
                     href="#features"
-                    variant="secondary"
-                    size="lg"
-                    class="bg-background-elevated hover:bg-background-elevated/90 border border-white/10"
+                    class="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-text-secondary hover:text-swift-blue transition-colors"
                     aria-label={t.hero.cta.learnMore}
                 >
                     {t.hero.cta.learnMore}
-                </Button>
+                    <svg 
+                        class="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" 
+                        fill="none" 
+                        viewBox="0 0 24 24" 
+                        stroke="currentColor"
+                    >
+                        <path 
+                            stroke-linecap="round" 
+                            stroke-linejoin="round" 
+                            stroke-width="2" 
+                            d="M19 9l-7 7-7-7"
+                        />
+                    </svg>
+                </a>
             </div>
         </div>
 

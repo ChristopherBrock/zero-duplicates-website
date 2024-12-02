@@ -1,32 +1,43 @@
 ---
+// File: components/common/LanguageSwitcher.astro
 import { getLocaleFromUrl, getRelativeLocaleUrl } from '../../i18n/ui';
 import { languageNames, type SupportedLanguage } from '../../i18n/config';
+
+interface Props {
+  variant?: 'desktop' | 'mobile';
+}
+
+const { variant = 'desktop' } = Astro.props;
 
 // Get current URL and language
 const url = Astro.url;
 const currentLang = getLocaleFromUrl(url);
-
-// Get current path without language prefix
 const currentPath = url.pathname.replace(`/${currentLang}`, '') || '/';
 
-// Create array of language options
 const languageOptions = Object.entries(languageNames).map(([lang, name]) => ({
   lang: lang as SupportedLanguage,
   name,
   url: getRelativeLocaleUrl(lang as SupportedLanguage, currentPath),
   isActive: currentLang === lang
 }));
+
+const displayText = variant === 'mobile' 
+  ? currentLang.toUpperCase() 
+  : languageNames[currentLang];
+
+const buttonId = `language-menu-button-${variant}`;
+const menuId = `language-menu-${variant}`;
 ---
 
 <div class="relative inline-block text-left">
     <button
       type="button"
       class="inline-flex items-center justify-center gap-x-2 text-sm text-text-secondary hover:text-swift-blue transition-colors"
-      id="language-menu-button"
+      id={buttonId}
       aria-expanded="false"
       aria-haspopup="true"
     >
-      {languageNames[currentLang]}
+      {displayText}
       <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
       </svg>
@@ -36,15 +47,14 @@ const languageOptions = Object.entries(languageNames).map(([lang, name]) => ({
       class="hidden absolute right-0 z-50 mt-2 w-40 origin-top-right rounded-md bg-[#2C2C2E] border border-white/10 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
       role="menu"
       aria-orientation="vertical"
-      aria-labelledby="language-menu-button"
+      aria-labelledby={buttonId}
       tabindex="-1"
-      id="language-menu"
+      id={menuId}
     >
       <div class="py-1" role="none">
         {
           languageOptions.map((option) => (
-            
-          <a
+            <a
               href={option.url}
               class={`block px-4 py-2 text-sm transition-colors ${
                 option.isActive 
@@ -60,36 +70,34 @@ const languageOptions = Object.entries(languageNames).map(([lang, name]) => ({
         }
       </div>
     </div>
-  </div>
+</div>
 
-<script>
-  // Toggle dropdown
-  const button = document.getElementById('language-menu-button');
-  const menu = document.getElementById('language-menu');
+<script define:vars={{ buttonId, menuId }}>
+  const button = document.getElementById(buttonId);
+  const menu = document.getElementById(menuId);
+  let isOpen = false;
 
   if (button && menu) {
-    const toggleMenu = () => {
-      const expanded = button.getAttribute('aria-expanded') === 'true';
-      button.setAttribute('aria-expanded', (!expanded).toString());
+    const toggleMenu = (event) => {
+      event?.stopPropagation();
+      isOpen = !isOpen;
+      button.setAttribute('aria-expanded', isOpen.toString());
       menu.classList.toggle('hidden');
     };
 
     // Toggle on button click
-    button.addEventListener('click', (e) => {
-      e.stopPropagation();
-      toggleMenu();
-    });
+    button.addEventListener('click', toggleMenu);
 
     // Close on click outside
-    document.addEventListener('click', () => {
-      if (!menu.classList.contains('hidden')) {
+    document.addEventListener('click', (event) => {
+      if (isOpen && !menu.contains(event.target) && !button.contains(event.target)) {
         toggleMenu();
       }
     });
 
     // Close on ESC key
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !menu.classList.contains('hidden')) {
+      if (e.key === 'Escape' && isOpen) {
         toggleMenu();
       }
     });

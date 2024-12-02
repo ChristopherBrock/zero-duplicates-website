@@ -2,7 +2,6 @@
 // File: components/common/MobileNavigation.astro
 import { getLocaleFromUrl } from '../../i18n/ui';
 import { translations } from '../../i18n/translations';
-import Button from './Button.astro';
 import { appLinks } from '../../utils/constants';
 
 const currentLang = getLocaleFromUrl(Astro.url);
@@ -15,86 +14,99 @@ const navigationItems = [
   { href: "/terms", label: t.footer.terms },
   { href: "/imprint", label: t.footer.imprint },
 ];
+
+// Get the correct store badge based on language
+const storeBadge = currentLang === 'en' ? '/images/en_store.svg' : '/images/de_store.svg';
 ---
 
 <div
   id="mobile-menu"
-  class="hidden fixed inset-0 z-50 bg-background-elevated/95 backdrop-blur-sm"
+  class="fixed inset-0 z-50 transform translate-x-full transition-transform duration-200 ease-in-out"
   aria-hidden="true"
 >
-  <div class="container-width h-full">
-    <div class="flex flex-col h-full py-6">
-      <!-- Close button -->
-      <button
-        id="close-menu"
-        class="self-end p-2 text-text-secondary hover:text-swift-blue transition-colors"
-        aria-label="Close menu"
-      >
-        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
+  {/* Backdrop with strong blur */}
+  <div class="absolute inset-0 bg-background/98 backdrop-blur-xl"></div>
+  
+  {/* Content */}
+  <div class="relative h-full">
+    <div class="container-width h-full">
+      <div class="flex flex-col h-full py-6">
+        {/* Close button */}
+        <button
+          id="mobile-menu-close"
+          class="self-end p-2 text-text-secondary hover:text-swift-blue transition-colors"
+          aria-label="Close menu"
+        >
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
 
-      <!-- Navigation items -->
-      <nav class="flex-grow flex items-center">
-        <ul class="w-full space-y-6">
-          {navigationItems.map(item => (
-            <li class="text-center">
-              <a
-                href={item.href}
-                class="text-xl font-medium text-text-secondary hover:text-swift-blue transition-colors"
-                aria-label={item.label}
+        {/* Navigation items */}
+        <nav class="flex-grow flex items-center">
+          <ul class="w-full space-y-8 pt-8">
+            {navigationItems.map(item => (
+              <li class="text-center">
+                <a
+                  href={item.href}
+                  class="text-xl font-medium text-text-secondary hover:text-swift-blue transition-colors"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+            <li class="text-center pt-8">
+              <a 
+                href={appLinks.appStore}
+                class="inline-block transition-opacity hover:opacity-90"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={t.nav.download}
               >
-                {item.label}
+                <img 
+                  src={storeBadge}
+                  alt={t.nav.download}
+                  class="h-[44px] w-auto mx-auto"
+                  width="156"
+                  height="44"
+                />
               </a>
             </li>
-          ))}
-          <li class="text-center pt-6">
-            <Button
-              href={appLinks.appStore}
-              variant="primary"
-              size="lg"
-              class="w-full max-w-xs bg-swift-blue hover:bg-swift-blue/90"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {t.nav.download}
-            </Button>
-          </li>
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      </div>
     </div>
   </div>
 </div>
 
 <script>
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
   const mobileMenu = document.getElementById('mobile-menu');
-  const closeButton = document.getElementById('close-menu');
-  const menuButton = document.getElementById('menu-button');
+  const closeButton = document.getElementById('mobile-menu-close');
+  let isOpen = false;
 
   function toggleMenu() {
-    const isHidden = mobileMenu?.classList.contains('hidden');
-    
-    if (isHidden) {
-      mobileMenu?.classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
-    } else {
-      mobileMenu?.classList.add('hidden');
-      document.body.style.overflow = '';
+    isOpen = !isOpen;
+    if (mobileMenu && mobileMenuButton) {
+      mobileMenu.style.transform = isOpen ? 'translateX(0)' : 'translateX(100%)';
+      mobileMenuButton.setAttribute('aria-expanded', isOpen.toString());
+      document.body.style.overflow = isOpen ? 'hidden' : '';
     }
   }
 
-  menuButton?.addEventListener('click', toggleMenu);
+  mobileMenuButton?.addEventListener('click', toggleMenu);
   closeButton?.addEventListener('click', toggleMenu);
 
   // Close menu when clicking on a link
   mobileMenu?.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', toggleMenu);
+    link.addEventListener('click', () => {
+      if (isOpen) toggleMenu();
+    });
   });
 
   // Close menu on escape key
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && !mobileMenu?.classList.contains('hidden')) {
+    if (e.key === 'Escape' && isOpen) {
       toggleMenu();
     }
   });

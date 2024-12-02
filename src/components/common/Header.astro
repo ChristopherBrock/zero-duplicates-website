@@ -1,11 +1,10 @@
 ---
 // File: components/common/Header.astro
-import Button from "./Button.astro";
 import Navigation from "./Navigation.astro";
 import LanguageSwitcher from "./LanguageSwitcher.astro";
+import MobileNavigation from "./MobileNavigation.astro";
 import { getLocaleFromUrl } from '../../i18n/ui';
 import { translations } from '../../i18n/translations';
-import { appLinks } from '../../utils/constants';
 
 const currentPath = Astro.url.pathname;
 const currentLang = getLocaleFromUrl(Astro.url);
@@ -16,6 +15,7 @@ const isMainPage = currentPath === `/${currentLang}` || currentPath === `/${curr
 <header class="fixed w-full bg-background-elevated/80 backdrop-blur-md z-50 border-b border-white/10">
   <div class="container-width">
     <div class="flex justify-between items-center py-4">
+      {/* Logo */}
       <div class="flex items-center">
         <a 
           href={`/${currentLang}`} 
@@ -37,27 +37,35 @@ const isMainPage = currentPath === `/${currentLang}` || currentPath === `/${curr
         </a>
       </div>
 
+      {/* Desktop Navigation */}
       <div class="hidden md:flex items-center space-x-8">
         {isMainPage && (
           <>
             <Navigation variant="header" />
-            <LanguageSwitcher />
+            <LanguageSwitcher variant="desktop" />
           </>
         )}
       </div>
 
-      <div class="flex items-center space-x-4">
-        <Button 
-          href={appLinks.appStore}
-          variant="primary" 
-          size="md"
-          class="bg-swift-blue hover:bg-swift-blue/90"
-          target="_blank"
-          rel="noopener noreferrer"
+      {/* Mobile Navigation */}
+      <div class="flex items-center space-x-4 md:hidden">
+        <LanguageSwitcher variant="mobile" />
+        
+        <button
+          type="button"
+          class="inline-flex items-center justify-center p-2 text-text-secondary hover:text-swift-blue transition-colors"
+          id="mobile-menu-button"
+          aria-expanded="false"
+          aria-label="Toggle menu"
         >
-          {t.nav.download}
-        </Button>
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
       </div>
     </div>
   </div>
 </header>
+
+{/* Mobile Menu */}
+<MobileNavigation />
