@@ -1,9 +1,36 @@
 ---
 import { getUserPreferredLanguage, getRelativeLocaleUrl } from '../i18n/ui';
 
-// Get user's preferred language
 const preferredLanguage = getUserPreferredLanguage();
 const redirectUrl = getRelativeLocaleUrl(preferredLanguage);
 ---
 
-<meta http-equiv="refresh" content={`0;url=${redirectUrl}`} />
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ZeroDuplicates - Redirecting...</title>
+    <script>
+      // Get browser language
+      const getBrowserLang = () => {
+        const lang = navigator.language;
+        return lang.split('-')[0];
+      };
+
+      // Supported languages
+      const supportedLangs = ['en', 'de'];
+      
+      // Get preferred language or fallback to 'en'
+      const userLang = getBrowserLang();
+      const targetLang = supportedLangs.includes(userLang) ? userLang : 'en';
+      
+      // Redirect
+      window.location.href = `/${targetLang}`;
+    </script>
+    <noscript>
+      <meta http-equiv="refresh" content={`0;url=${redirectUrl}`}>
+    </noscript>
+  </head>
+  <body>
+    <p>Redirecting to your preferred language... <a href={redirectUrl}>Click here</a> if you are not redirected automatically.</p>
+  </body>
+</html>
