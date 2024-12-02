@@ -1,0 +1,48 @@
+---
+// File: components/common/Navigation.astro
+import { getLocaleFromUrl } from '../../i18n/ui';
+import { translations } from '../../i18n/translations';
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'nav'> {
+  variant?: 'header' | 'footer';
+  class?: string;
+}
+
+const { variant = 'header', class: className = '' } = Astro.props;
+const currentLang = getLocaleFromUrl(Astro.url);
+const t = translations[currentLang];
+
+const navigationItems = [
+  { href: `/${currentLang}#features`, label: t.nav.features },
+  { href: `/${currentLang}#faq`, label: t.nav.faq },
+  { href: "/privacy", label: t.footer.privacy },
+  { href: "/terms", label: t.footer.terms },
+  { href: "/imprint", label: t.footer.imprint },
+];
+
+// Filter items based on variant
+const items = variant === 'header' 
+  ? navigationItems.slice(0, 2)  // Only features and FAQ for header
+  : navigationItems.slice(2);    // Legal pages for footer
+
+const baseStyles = variant === 'header'
+  ? 'text-sm text-text-secondary hover:text-swift-blue transition-colors'
+  : 'text-sm text-text-secondary hover:text-swift-blue transition-colors';
+---
+
+<nav class={className}>
+  <ul class={`flex ${variant === 'header' ? 'space-x-8' : 'space-x-6'}`}>
+    {items.map(item => (
+      <li>
+        <a 
+          href={item.href} 
+          class={baseStyles}
+          aria-label={item.label}
+        >
+          {item.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>

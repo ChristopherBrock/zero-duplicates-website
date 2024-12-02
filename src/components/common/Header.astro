@@ -1,8 +1,11 @@
 ---
+// File: components/common/Header.astro
 import Button from "./Button.astro";
+import Navigation from "./Navigation.astro";
 import LanguageSwitcher from "./LanguageSwitcher.astro";
 import { getLocaleFromUrl } from '../../i18n/ui';
 import { translations } from '../../i18n/translations';
+import { appLinks } from '../../utils/constants';
 
 const currentPath = Astro.url.pathname;
 const currentLang = getLocaleFromUrl(Astro.url);
@@ -14,7 +17,11 @@ const isMainPage = currentPath === `/${currentLang}` || currentPath === `/${curr
   <div class="container-width">
     <div class="flex justify-between items-center py-4">
       <div class="flex items-center">
-        <a href={`/${currentLang}`} class="flex items-center">
+        <a 
+          href={`/${currentLang}`} 
+          class="flex items-center"
+          aria-label="ZeroDuplicates Home"
+        >
           <div class="relative w-10 h-10 mr-3">
             <img
               src="/images/logo/logo@1x.png"
@@ -22,6 +29,8 @@ const isMainPage = currentPath === `/${currentLang}` || currentPath === `/${curr
                       /images/logo/logo@2x.png 2x"
               alt="ZeroDuplicates Logo"
               class="w-10 h-10 mr-3 rounded-[23%] shadow-md"
+              width="40"
+              height="40"
             />
           </div>
           <span class="text-xl font-semibold text-white">ZeroDuplicates</span>
@@ -31,12 +40,7 @@ const isMainPage = currentPath === `/${currentLang}` || currentPath === `/${curr
       <div class="hidden md:flex items-center space-x-8">
         {isMainPage && (
           <>
-            <a href="#features" class="text-sm text-text-secondary hover:text-swift-blue transition-colors">
-              {t.nav.features}
-            </a>
-            <a href="#faq" class="text-sm text-text-secondary hover:text-swift-blue transition-colors">
-              {t.nav.faq}
-            </a>
+            <Navigation variant="header" />
             <LanguageSwitcher />
           </>
         )}
@@ -44,10 +48,12 @@ const isMainPage = currentPath === `/${currentLang}` || currentPath === `/${curr
 
       <div class="flex items-center space-x-4">
         <Button 
-          href="#" 
+          href={appLinks.appStore}
           variant="primary" 
           size="md"
           class="bg-swift-blue hover:bg-swift-blue/90"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           {t.nav.download}
         </Button>

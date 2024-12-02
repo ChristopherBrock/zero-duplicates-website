@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://zeroduplicates.com/sitemap.xml
+
+# Language specific sitemaps
+Sitemap: https://zeroduplicates.com/en/sitemap.xml
+Sitemap: https://zeroduplicates.com/de/sitemap.xml
+
+# Prevent crawling of certain paths
+Disallow: /api/
+Disallow: /_astro/
+Disallow: /node_modules/
