@@ -11,7 +11,7 @@ const currentPath = Astro.url.pathname;
 const currentLang = getLocaleFromUrl(Astro.url);
 const t = translations[currentLang];
 const isMainPage = currentPath === '/' || currentPath === `/${currentLang}` || currentPath === `/${currentLang}/`;
-const { lang } = Astro.params;
+const homeUrl = currentLang === 'en' ? '/' : `/${currentLang}`;
 ---
 
 <header class="fixed w-full bg-background-elevated/80 backdrop-blur-md z-50 border-b border-white/10">
@@ -19,7 +19,7 @@ const { lang } = Astro.params;
     <div class="flex justify-between items-center py-4">
       <div class="flex items-center">
         <a 
-          href={`/${currentLang}`} 
+          href={homeUrl} 
           class="flex items-center"
           aria-label="ZeroDuplicates Home"
         >
@@ -60,14 +60,11 @@ const { lang } = Astro.params;
         <LanguageSwitcher variant="mobile" />
         
         <button
-          type="button"
-          class="inline-flex items-center justify-center p-2 text-text-secondary hover:text-swift-blue transition-colors"
-          id="mobile-menu-button"
-          aria-expanded="false"
-          aria-label="Toggle menu"
+          class="text-white"
+          aria-label="Open mobile navigation"
         >
-          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
           </svg>
         </button>
       </div>
@@ -80,7 +77,7 @@ const { lang } = Astro.params;
     <ul>
       {supportedLanguages.map((language) => (
         <li>
-          <a href={getRelativeLocaleUrl(language)} class={lang === language ? 'active' : ''}>
+          <a href={getRelativeLocaleUrl(language)} class={currentLang === language ? 'active' : ''}>
             {language.toUpperCase()}
           </a>
         </li>
