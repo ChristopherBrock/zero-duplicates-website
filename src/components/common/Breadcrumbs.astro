@@ -10,7 +10,11 @@ interface Props {
   }[];
 }
 
-const { items } = Astro.props;
+const items = [
+  { href: "/", name: "Home" },
+  { href: "/privacy", name: "Privacy Policy" },
+];
+
 const currentLang = getLocaleFromUrl(Astro.url);
 const t = translations[currentLang];
 
@@ -22,7 +26,7 @@ const breadcrumbSchema = {
     "@type": "ListItem",
     "position": index + 1,
     "item": {
-      "@id": `https://zeroduplicates.com${item.href}`,
+      "@id": `https://zeroduplicates.com${currentLang === 'en' ? '' : `/${currentLang}`}${item.href}`,
       "name": item.name
     }
   }))
@@ -49,7 +53,7 @@ const breadcrumbSchema = {
           </svg>
         )}
         <a
-          href={item.href}
+          href={`${currentLang === 'en' ? '' : `/${currentLang}`}${item.href}`}
           class={`${
             index === items.length - 1
               ? 'text-text-primary font-medium'
