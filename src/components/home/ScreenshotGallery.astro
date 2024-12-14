@@ -2,17 +2,14 @@
 // File: components/home/ScreenshotGallery.astro
 const screenshots = [
     {
-        pngSrc: "/images/screenshots/screenshot-1.png",
         webpSrc: "/images/screenshots/screenshot-1.webp",
         alt: "Scan for duplicates",
     },
     {
-        pngSrc: "/images/screenshots/screenshot-2.png",
         webpSrc: "/images/screenshots/screenshot-2.webp",
         alt: "Select duplicates",
     },
     {
-        pngSrc: "/images/screenshots/screenshot-3.png",
         webpSrc: "/images/screenshots/screenshot-3.webp",
         alt: "Delete duplicates",
     },
@@ -26,75 +23,56 @@ const screenshots = [
         id="carousel">
             {/* Last image clone */}
             <div class="w-full shrink-0">
-                <picture>
-                    <source
-                        type="image/webp"
-                        srcset={screenshots[screenshots.length - 1].webpSrc}
-                    />
-                    <img
-                        src={screenshots[screenshots.length - 1].pngSrc}
-                        alt={screenshots[screenshots.length - 1].alt}
-                        class="w-full h-full object-contain bg-background-elevated aspect-[16/10]"
-                        loading="lazy"
-                    />
-                </picture>
+                <img
+                    src={screenshots[screenshots.length - 1].webpSrc}
+                    alt={screenshots[screenshots.length - 1].alt}
+                    class="w-full h-full object-contain bg-background-elevated aspect-[16/10]"
+                    loading="lazy"
+                />
             </div>
             
             {screenshots.map((screenshot) => (
                 <div class="w-full shrink-0">
-                    <picture>
-                        <source
-                            type="image/webp"
-                            srcset={screenshot.webpSrc}
-                        />
-                        <img
-                            src={screenshot.pngSrc}
-                            alt={screenshot.alt}
-                            class="w-full h-full object-contain bg-background-elevated aspect-[16/10]"
-                            loading="lazy"
-                        />
-                    </picture>
+                    <img
+                        src={screenshot.webpSrc}
+                        alt={screenshot.alt}
+                        class="w-full h-full object-contain bg-background-elevated aspect-[16/10]"
+                        loading="lazy"
+                    />
                 </div>
             ))}
             
             {/* First image clone */}
             <div class="w-full shrink-0">
-                <picture>
-                    <source
-                        type="image/webp"
-                        srcset={screenshots[0].webpSrc}
-                    />
-                    <img
-                        src={screenshots[0].pngSrc}
-                        alt={screenshots[0].alt}
-                        class="w-full h-full object-contain bg-background-elevated aspect-[16/10]"
-                        loading="lazy"
-                    />
-                </picture>
+                <img
+                    src={screenshots[0].webpSrc}
+                    alt={screenshots[0].alt}
+                    class="w-full h-full object-contain bg-background-elevated aspect-[16/10]"
+                    loading="lazy"
+                />
             </div>
         </div>
         
-        {/* Navigation arrows */}
         <button
-        class="absolute left-6 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/30 rounded-full p-3 transition backdrop-blur-sm group hidden md:block"
-        id="prevButton"
-        aria-label="Previous screenshot"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="white" class="w-6 h-6 group-hover:scale-110 transition">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-        </svg>
-      </button>
-      <button
-        class="absolute right-6 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/30 rounded-full p-3 transition backdrop-blur-sm group hidden md:block"
-        id="nextButton"
-        aria-label="Next screenshot"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="white" class="w-6 h-6 group-hover:scale-110 transition">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-        </svg>
-      </button>
+            class="absolute left-6 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/30 rounded-full p-3 transition backdrop-blur-sm group hidden md:block"
+            id="prevButton"
+            aria-label="Previous screenshot"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="white" class="w-6 h-6 group-hover:scale-110 transition">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5l-7.5-7.5 7.5-7.5" />
+            </svg>
+        </button>
+        <button
+            class="absolute right-6 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/30 rounded-full p-3 transition backdrop-blur-sm group hidden md:block"
+            id="nextButton"
+            aria-label="Next screenshot"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="white" class="w-6 h-6 group-hover:scale-110 transition">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+        </button>
     </div>
-  </div>
+</div>
 
 <script>
 class ScreenshotGallery {
