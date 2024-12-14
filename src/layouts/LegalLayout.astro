@@ -3,7 +3,6 @@
 import '../styles/global.css';
 import Header from '../components/common/Header.astro';
 import Footer from '../components/common/Footer.astro';
-import Breadcrumbs from '../components/common/Breadcrumbs.astro';
 import SEOHead from '../components/common/SEOHead.astro';
 import { translations } from '../i18n/translations';
 import { getLocaleFromUrl } from '../i18n/ui';
@@ -17,22 +16,11 @@ const { title, description } = Astro.props;
 const currentLang = getLocaleFromUrl(Astro.url);
 const t = translations[currentLang];
 
-// Get current page path for breadcrumbs
-const currentPath = Astro.url.pathname;
-const pageName = currentPath.split('/').pop() || '';
+// Determine the home URL based on the current language
+const homeUrl = currentLang === 'en' ? '/' : `/${currentLang}`;
 
-// Build breadcrumb items
-const breadcrumbItems = [
-  { name: 'Home', href: `/${currentLang}` },
-  { 
-    name: {
-      'privacy': t.footer.privacy,
-      'terms': t.footer.terms,
-      'imprint': t.footer.imprint
-    }[pageName] || title,
-    href: currentPath 
-  }
-];
+// Determine the back button text based on the current language
+const backButtonText = currentLang === 'en' ? 'Back' : 'Zurück';
 ---
 
 <html lang={currentLang} class="dark">
@@ -47,7 +35,12 @@ const breadcrumbItems = [
     <Header />
     <main class="flex-grow pt-[var(--header-height)]">
       <div class="container-width py-8">
-        <Breadcrumbs items={breadcrumbItems} />
+        <!-- Back to Home button -->
+        <div class="mb-4">
+          <a href={homeUrl} class="text-swift-blue hover:underline">
+            &larr; {backButtonText}
+          </a>
+        </div>
         
         <!-- Main content -->
         <div class="max-w-3xl mx-auto bg-background-elevated rounded-lg shadow-lg border border-white/10 p-8 sm:p-12">

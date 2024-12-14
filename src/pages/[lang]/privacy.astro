@@ -1,0 +1,35 @@
+---
+import LegalLayout from '../../layouts/LegalLayout.astro';
+import '../../styles/global.css';
+import SEOHead from '../../components/common/SEOHead.astro';
+import Header from '../../components/common/Header.astro';
+import Footer from '../../components/common/Footer.astro';
+import { translations } from '../../i18n/translations';
+import { isValidLanguage, getRelativeLocaleUrl } from '../../i18n/ui';
+import type { GetStaticPaths } from 'astro';
+import { supportedLanguages } from '../../i18n/config';
+
+export const getStaticPaths = (() => {
+  return supportedLanguages
+    .filter(lang => lang !== 'en') // Exclude English
+    .map(lang => ({ params: { lang } }));
+}) satisfies GetStaticPaths;
+
+const { lang } = Astro.params;
+
+if (!isValidLanguage(lang)) {
+  return Astro.redirect(getRelativeLocaleUrl('en'));
+}
+
+const t = translations[lang];
+---
+
+<LegalLayout title="Datenschutzerklärung">
+  <h1>Datenschutzerklärung</h1>
+  <p>Stand: {new Date().toLocaleDateString('de-DE')}</p>
+
+  <h2>Datenschutz</h2>
+  <p>
+    ZeroDuplicates sammelt oder speichert keine personenbezogenen Daten. Die App arbeitet ausschließlich lokal auf Ihrem Computer.
+  </p>
+</LegalLayout>

@@ -3,10 +3,10 @@ import LegalLayout from '../layouts/LegalLayout.astro';
 import { personalInfo } from '../utils/constants';
 ---
 
-<LegalLayout title="Impressum">
-  <h1>Impressum</h1>
+<LegalLayout title="Imprint">
+  <h1>Imprint</h1>
   
-  <h2>Angaben gemäß § 5 TMG</h2>
+  <h2>Information according to § 5 TMG</h2>
   <p>
     {personalInfo.name.full}<br />
     {personalInfo.address.street} {personalInfo.address.number}<br />
@@ -14,10 +14,10 @@ import { personalInfo } from '../utils/constants';
     {personalInfo.address.country}
   </p>
 
-  <h2>Kontakt</h2>
+  <h2>Contact</h2>
   <p>
-    E-Mail: {personalInfo.contact.email}<br />
-    Telefon: {personalInfo.contact.phone}
+    Email: {personalInfo.contact.email}<br />
+    Phone: {personalInfo.contact.phone}
   </p>
   <!-- Rest of the content -->
 </LegalLayout>

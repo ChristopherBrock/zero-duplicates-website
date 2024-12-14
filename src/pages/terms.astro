@@ -3,49 +3,48 @@ import LegalLayout from '../layouts/LegalLayout.astro';
 import { personalInfo } from '../utils/constants';
 ---
 
-<LegalLayout title="Allgemeine Geschäftsbedingungen">
-  <h1>Allgemeine Geschäftsbedingungen (AGB)</h1>
-  <p>Stand: {new Date().toLocaleDateString('de-DE')}</p>
+<LegalLayout title="Terms and Conditions">
+  <h1>Terms and Conditions</h1>
+  <p>Version: {new Date().toLocaleDateString('en-US')}</p>
 
-  <h2>1. Geltungsbereich</h2>
+  <h2>1. Scope of Application</h2>
   <p>
-    Diese AGB gelten für die Nutzung der Software "ZeroDuplicates" (nachfolgend "Software").
+    These Terms and Conditions apply to the use of the software "ZeroDuplicates" (hereinafter "Software").
   </p>
 
-  <h2>2. Leistungsbeschreibung</h2>
+  <h2>2. Service Description</h2>
   <p>
-    Die Software ermöglicht das Auffinden und Löschen von Dateiduplikaten. 
-    Die Software wird "wie besehen" zur Verfügung gestellt.
+    The Software enables the detection and deletion of file duplicates. 
+    The Software is provided "as is".
   </p>
 
-  <h2>3. Nutzungsrechte</h2>
+  <h2>3. Rights of Use</h2>
   <p>
-    Mit dem Erwerb der Software erhält der Nutzer ein einfaches, nicht übertragbares 
-    Nutzungsrecht. Eine Weitergabe der Software an Dritte ist nicht gestattet.
+    By purchasing the Software, the user receives a simple, non-transferable 
+    right of use. Transfer of the Software to third parties is not permitted.
   </p>
 
-  <h2>4. Haftungsbeschränkung</h2>
+  <h2>4. Limitation of Liability</h2>
   <p>
-    Wir übernehmen keine Haftung für Datenverluste oder Schäden, die durch die Nutzung 
-    der Software entstehen. Der Nutzer ist für die Sicherung seiner Daten selbst 
-    verantwortlich.
+    We assume no liability for data loss or damages resulting from the use 
+    of the Software. The user is solely responsible for backing up their data.
   </p>
 
-  <h2>5. Gewährleistung</h2>
+  <h2>5. Warranty</h2>
   <p>
-    Eine Gewährleistung für die Funktionsfähigkeit der Software besteht nur im 
-    gesetzlich zwingenden Umfang. Der Nutzer testet die Software in einer 
-    gesicherten Umgebung.
+    A warranty for the functionality of the Software exists only to the 
+    extent legally required. The user must test the Software in a 
+    secure environment.
   </p>
 
-  <h2>6. Änderungen</h2>
+  <h2>6. Changes</h2>
   <p>
-    Wir behalten uns vor, diese AGB jederzeit zu ändern. Die aktuelle Version ist 
-    in der Software einsehbar.
+    We reserve the right to modify these Terms and Conditions at any time. The current 
+    version can be viewed in the Software.
   </p>
 
-  <h2>7. Schlussbestimmungen</h2>
+  <h2>7. Final Provisions</h2>
   <p>
-    Es gilt deutsches Recht. Gerichtsstand ist {personalInfo.address.city}, soweit gesetzlich zulässig.
+    German law applies. The place of jurisdiction is {personalInfo.address.city}, where legally permissible.
   </p>
 </LegalLayout>
