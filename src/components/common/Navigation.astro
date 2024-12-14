@@ -13,9 +13,11 @@ const { variant = 'header', class: className = '' } = Astro.props;
 const currentLang = getLocaleFromUrl(Astro.url);
 const t = translations[currentLang];
 
+const baseHref = currentLang === 'en' ? '' : `/${currentLang}`;
+
 const navigationItems = [
-  { href: `/${currentLang}#features`, label: t.nav.features },
-  { href: `/${currentLang}#faq`, label: t.nav.faq },
+  { href: `${baseHref}#features`, label: t.nav.features },
+  { href: `${baseHref}#faq`, label: t.nav.faq },
   { href: "/privacy", label: t.footer.privacy },
   { href: "/terms", label: t.footer.terms },
   { href: "/imprint", label: t.footer.imprint },

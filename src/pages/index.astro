@@ -1,36 +1,49 @@
 ---
-import { getUserPreferredLanguage, getRelativeLocaleUrl } from '../i18n/ui';
+import '../styles/global.css';
+import SEOHead from '../components/common/SEOHead.astro';
+import StructuredData from '../components/common/StructuredData.astro';
+import Header from '../components/common/Header.astro';
+import Hero from '../components/home/Hero.astro';
+import Features from '../components/home/Features.astro';
+import FAQ from '../components/home/FAQ.astro';
+import Contact from '../components/home/Contact.astro';
+import Footer from '../components/common/Footer.astro';
+import { translations } from '../i18n/translations';
+import { isValidLanguage, getRelativeLocaleUrl } from '../i18n/ui';
+import type { GetStaticPaths } from 'astro';
+import { supportedLanguages } from '../i18n/config';
 
-const preferredLanguage = getUserPreferredLanguage();
-const redirectUrl = getRelativeLocaleUrl(preferredLanguage);
+// Default to English for root path
+const lang = 'en';
+const t = translations[lang];
 ---
 
-<!DOCTYPE html>
-<html>
+<html lang={lang} class="dark">
   <head>
-    <title>ZeroDuplicates - Redirecting...</title>
-    <script>
-      // Get browser language
-      const getBrowserLang = () => {
-        const lang = navigator.language;
-        return lang.split('-')[0];
-      };
-
-      // Supported languages
-      const supportedLangs = ['en', 'de'];
-      
-      // Get preferred language or fallback to 'en'
-      const userLang = getBrowserLang();
-      const targetLang = supportedLangs.includes(userLang) ? userLang : 'en';
-      
-      // Redirect
-      window.location.href = `/${targetLang}`;
-    </script>
-    <noscript>
-      <meta http-equiv="refresh" content={`0;url=${redirectUrl}`}>
-    </noscript>
+    <SEOHead
+      title={t.seo.title}
+      description={t.seo.description}
+      lang={lang}
+    />
+    <StructuredData
+      lang={lang}
+      title={t.seo.title}
+      description={t.seo.description}
+    />
   </head>
-  <body>
-    <p>Redirecting to your preferred language... <a href={redirectUrl}>Click here</a> if you are not redirected automatically.</p>
+  <body class="min-h-screen flex flex-col bg-background text-text-primary">
+    <Header />
+    <main class="flex-grow">
+      <h1 class="sr-only">{t.seo.title}</h1>
+      <Hero />
+      <Features />
+      <FAQ />
+      <Contact />
+    </main>
+    <Footer />
+
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-swift-blue text-white px-4 py-2 rounded">
+      Skip to main content
+    </a>
   </body>
 </html>

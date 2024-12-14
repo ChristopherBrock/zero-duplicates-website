@@ -74,13 +74,16 @@ export type Translation = {
 };
 
 export function getRelativeLocaleUrl(lang: SupportedLanguage, path: string = ''): string {
-  return `/${lang}${path}`;
+  if (lang === 'en') {
+    return path; // English goes to root
+  }
+  return `/${lang}${path}`; // Other languages keep their prefix
 }
 
 export function getLocaleFromUrl(url: URL): SupportedLanguage {
-  const [, lang] = url.pathname.split('/');
-  if (lang in languageNames) return lang as SupportedLanguage;
-  return defaultLang;
+  const [, firstSegment] = url.pathname.split('/');
+  if (firstSegment === 'de') return 'de';
+  return 'en'; // Default to English for root path
 }
 
 export function formatDate(date: Date, lang: SupportedLanguage): string {

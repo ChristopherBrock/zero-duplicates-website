@@ -3,13 +3,15 @@
 import Navigation from "./Navigation.astro";
 import LanguageSwitcher from "./LanguageSwitcher.astro";
 import MobileNavigation from "./MobileNavigation.astro";
-import { getLocaleFromUrl } from '../../i18n/ui';
+import { getRelativeLocaleUrl, getLocaleFromUrl } from '../../i18n/ui';
 import { translations } from '../../i18n/translations';
+import { supportedLanguages } from '../../i18n/config';
 
 const currentPath = Astro.url.pathname;
 const currentLang = getLocaleFromUrl(Astro.url);
 const t = translations[currentLang];
-const isMainPage = currentPath === `/${currentLang}` || currentPath === `/${currentLang}/`;
+const isMainPage = currentPath === '/' || currentPath === `/${currentLang}` || currentPath === `/${currentLang}/`;
+const { lang } = Astro.params;
 ---
 
 <header class="fixed w-full bg-background-elevated/80 backdrop-blur-md z-50 border-b border-white/10">
@@ -72,6 +74,20 @@ const isMainPage = currentPath === `/${currentLang}` || currentPath === `/${curr
     </div>
   </div>
 </header>
+
+{isMainPage && (
+  <nav>
+    <ul>
+      {supportedLanguages.map((language) => (
+        <li>
+          <a href={getRelativeLocaleUrl(language)} class={lang === language ? 'active' : ''}>
+            {language.toUpperCase()}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+)}
 
 {/* Mobile Menu */}
 <MobileNavigation />

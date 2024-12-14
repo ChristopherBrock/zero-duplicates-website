@@ -15,7 +15,9 @@ import type { GetStaticPaths } from 'astro';
 import { supportedLanguages } from '../../i18n/config';
 
 export const getStaticPaths = (() => {
-  return supportedLanguages.map(lang => ({ params: { lang } }));
+  return supportedLanguages
+    .filter(lang => lang !== 'en') // Exclude English
+    .map(lang => ({ params: { lang } }));
 }) satisfies GetStaticPaths;
 
 const { lang } = Astro.params;
