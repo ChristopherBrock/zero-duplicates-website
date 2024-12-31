@@ -2,7 +2,6 @@
 // File: components/common/Header.astro
 import Navigation from "./Navigation.astro";
 import LanguageSwitcher from "./LanguageSwitcher.astro";
-import MobileNavigation from "./MobileNavigation.astro";
 import { getRelativeLocaleUrl, getLocaleFromUrl } from '../../i18n/ui';
 import { translations } from '../../i18n/translations';
 import { supportedLanguages } from '../../i18n/config';
@@ -54,37 +53,6 @@ const homeUrl = currentLang === 'en' ? '/' : `/${currentLang}`;
           </>
         )}
       </div>
-
-      {/* Mobile Navigation */}
-      <div class="flex items-center space-x-4 md:hidden">
-        <LanguageSwitcher variant="mobile" />
-        
-        <button
-          class="text-white"
-          aria-label="Open mobile navigation"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
-          </svg>
-        </button>
-      </div>
     </div>
   </div>
 </header>
-
-{isMainPage && (
-  <nav>
-    <ul>
-      {supportedLanguages.map((language) => (
-        <li>
-          <a href={getRelativeLocaleUrl(language)} class={currentLang === language ? 'active' : ''}>
-            {language.toUpperCase()}
-          </a>
-        </li>
-      ))}
-    </ul>
-  </nav>
-)}
-
-{/* Mobile Menu */}
-<MobileNavigation />
