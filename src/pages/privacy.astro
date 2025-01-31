@@ -3,6 +3,9 @@ import LegalLayout from '../layouts/LegalLayout.astro';
 ---
 
 <LegalLayout title="Privacy policy">
+  <head>
+    <meta name="robots" content="noindex" />
+  </head>
   <h1>Privacy policy</h1>
   <p>State: {new Date().toLocaleDateString('de-DE')}</p>
 
