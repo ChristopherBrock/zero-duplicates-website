@@ -68,7 +68,7 @@ export const de: Translation = {
     lastUpdated: "Zuletzt aktualisiert:",
   },
   seo: {
-    title: "Zero Duplicates App - Finden und Entfernen Sie doppelte Dateien auf dem Mac",
+    title: "Finden und Entfernen Sie doppelte Dateien auf dem Mac",
     description: "Räumen Sie den Speicher Ihres Macs auf, indem Sie doppelte Dateien sicher identifizieren und entfernen. Die intelligente Erkennung stellt sicher, dass Sie keine wichtigen Dateien verlieren. Jetzt im App Store herunterladen.",
   },
 };
