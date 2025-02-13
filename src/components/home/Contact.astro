@@ -3,6 +3,9 @@ import { getLocaleFromUrl } from '../../i18n/ui';
 import { translations } from '../../i18n/translations';
 import { personalInfo } from '../../utils/constants';
 
+import Instagram from '../../components/common/Instagram.tsx';
+import Mail from '../../components/common/Mail.tsx';
+
 const currentLang = getLocaleFromUrl(Astro.url);
 const t = translations[currentLang];
 ---
@@ -17,14 +20,24 @@ const t = translations[currentLang];
         {t.contact.subtitle}
       </p>
       
-      <div class="mt-10">
+      <div class="mt-10 flex justify-center items-center space-x-6">
         <a 
           href={`mailto:${personalInfo.contact.email}`}
           class="text-lg font-medium text-swift-blue hover:text-swift-blue/90 transition-colors"
           aria-label={t.contact.emailLabel}
         >
-          {personalInfo.contact.email}
+          E-Mail
         </a>
+        <a 
+          href={`${personalInfo.contact.instagram}`}
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="text-lg font-medium text-swift-blue hover:text-swift-blue/90 transition-colors"
+          aria-label="Instagram Profile"
+        >
+          Instagram
+        </a>
+      </div>
       </div>
     </div>
   </div>
