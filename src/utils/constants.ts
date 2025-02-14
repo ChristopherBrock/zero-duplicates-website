@@ -13,7 +13,6 @@ export const personalInfo = {
     },
     contact: {
         email: "support@zeroduplicates.com",
-        instagram: "https://www.instagram.com/christopher.brck",
         phone: "0211 54217342",
     },
     company: {
