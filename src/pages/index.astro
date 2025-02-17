@@ -30,6 +30,17 @@ const t = translations[lang];
       title={t.seo.title}
       description={t.seo.description}
     />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16881284756">
+    </script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'AW-16881284756');
+    </script>
   </head>
   <body class="min-h-screen flex flex-col bg-background text-text-primary">
     <Header />
