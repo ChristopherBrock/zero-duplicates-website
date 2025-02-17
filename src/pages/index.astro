@@ -30,7 +30,6 @@ const t = translations[lang];
       title={t.seo.title}
       description={t.seo.description}
     />
-
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16881284756">
     </script>
@@ -40,6 +39,14 @@ const t = translations[lang];
       gtag('js', new Date());
 
       gtag('config', 'AW-16881284756');
+    </script>
+    <!-- Event snippet for Page view conversion page -->
+    <script>
+      gtag('event', 'conversion', {
+          'send_to': 'AW-16881284756/aza9CNfSvJ8aEJTtz_E-',
+          'value': 1.0,
+          'currency': 'EUR'
+      });
     </script>
   </head>
   <body class="min-h-screen flex flex-col bg-background text-text-primary">
